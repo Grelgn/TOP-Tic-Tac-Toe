@@ -36,3 +36,14 @@ body {
 #box6, #box7, #box8 {
     border-bottom: none;
 }
+
+.turn {
+    margin-top: 40px;
+    font-size: 32px;
+    color: green;
+}
+
+.congrats {
+    font-size: 64px;
+    /* visibility: hidden; */
+}
