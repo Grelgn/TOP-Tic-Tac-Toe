@@ -11,12 +11,23 @@ const gameBoard = (function () {
     const player1 = createPlayer("X");
     const player2 = createPlayer("O");
 
-    //0 == empty, 1 == "X", 2 == "0"
     let gameBoard = [
-        [0, 0, 0],
-        [0, 0, 0],
-        [0, 0, 0]
+        ["", "", ""],
+        ["", "", ""],
+        ["", "", ""]
     ];
 
-    
+    const renderContents = (function () {
+        let count = 0;
+        gameBoard.forEach((element) => {
+            element.forEach((item) => {
+                let id = '#box' + count;
+                let box = document.querySelector(`${id}`);
+                box.textContent = item;
+                count++;
+            })
+        })
+    })();
+
+
 })();
