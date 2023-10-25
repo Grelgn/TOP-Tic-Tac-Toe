@@ -1,33 +1,52 @@
 const gameBoard = (function () {
-    function createPlayer (marker) {
-        const playerMarker = marker;
-        let points = 0;
-        const getPoints = () => points;
-        const givePoints = () => points++;
-
-        return { playerMarker, getPoints, givePoints }
-    }
-
-    const player1 = createPlayer("X");
-    const player2 = createPlayer("O");
-
-    let gameBoard = [
+    let board = [
         ["", "", ""],
         ["", "", ""],
         ["", "", ""]
     ];
 
-    const renderContents = (function () {
-        let count = 0;
-        gameBoard.forEach((element) => {
-            element.forEach((item) => {
-                let id = '#box' + count;
-                let box = document.querySelector(`${id}`);
-                box.textContent = item;
-                count++;
-            })
-        })
-    })();
-
-
+    return { board };
 })();
+
+function createPlayer (marker) {
+    const playerMarker = marker;
+    let points = 0;
+    const getPoints = () => points;
+    const givePoints = () => points++;
+
+    return { playerMarker, getPoints, givePoints }
+}
+
+const player1 = createPlayer("X");
+const player2 = createPlayer("O");
+
+const displayController = (function () {
+    const boxes = document.querySelectorAll(".box");
+    let clickCount = 0;
+    boxes.forEach((element) => {
+        element.addEventListener("click", (e)  => {
+            element.classList.contains("clicked") ? "" : clickCount++;
+            element.classList.add("clicked");
+            let value = 0;
+            clickCount % 2 != 0 ? value = player1.playerMarker : value = player2.playerMarker
+            let count = 0;
+            let currentRow = 0;
+
+            gameBoard.board.forEach((row) => {
+                let currentItem = 0;
+                row.forEach((item) => {
+                    let id = 'box' + count;
+                    let box = document.querySelector(`#${id}`);
+                    if (element.id == id && gameBoard.board[currentRow][currentItem] == "") {
+                        gameBoard.board[currentRow][currentItem] = value;
+                        box.textContent = value;
+                    }
+                    count++;
+                    currentItem++;
+                })
+                currentRow++;
+            })
+        });
+    })
+})();
+
